@@ -20,7 +20,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 600,
+      height: 630,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -50,8 +50,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           const Text(
             'Add Task',
             style: TextStyle(
+              fontFamily: 'Pacifico',
               color: Colors.lightBlueAccent,
-              fontSize: 30,
+              fontSize: 34,
+              fontWeight: FontWeight.w600,
               decorationColor: Colors.white,
             ),
           ),

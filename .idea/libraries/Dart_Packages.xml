@@ -107,13 +107,6 @@
             </list>
           </value>
         </entry>
-        <entry key="ronbarzilay">
-          <value>
-            <list>
-              <option value="$USER_HOME$/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="sky_engine">
           <value>
             <list>
@@ -196,7 +189,6 @@
       <root url="file://$USER_HOME$/Developer/flutter/bin/cache/pkg/sky_engine/lib" />
       <root url="file://$USER_HOME$/Developer/flutter/packages/flutter/lib" />
       <root url="file://$USER_HOME$/Developer/flutter/packages/flutter_test/lib" />
-      <root url="file://$USER_HOME$/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
