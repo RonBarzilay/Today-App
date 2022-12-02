@@ -1,2 +1,4 @@
 # Today-App
-Tasks follow-up App for a better time management and faster task completion across iOS, Android &amp; Web platforms.
+
+Today is an app for Tasks follow-up in purpose of better time management & faster task completion rate across iOS, Android & Web platforms.
+
