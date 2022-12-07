@@ -5,6 +5,7 @@ import 'package:today_app/components/tasks_list.dart';
 import 'package:today_app/screens/add_task_screen.dart';
 
 class TasksScreen extends StatefulWidget {
+  static String id = 'Tasks';
   const TasksScreen({Key? key}) : super(key: key);
 
   @override

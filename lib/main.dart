@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'screens/tasks_screen.dart';
+import 'package:today_app/screens/add_task_screen.dart';
+import 'package:today_app/screens/auth_screen.dart';
+import 'package:today_app/screens/tasks_screen.dart';
 
 void main() {
   runApp(const today());
@@ -11,9 +12,14 @@ class today extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TasksScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const AuthScreen(),
+        '/Tasks': (context) => const TasksScreen(),
+        '/New_Task': (context) => const AddTaskScreen()
+      },
     );
   }
 }

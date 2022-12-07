@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatefulWidget {
+  static String id = 'New_Task';
   const AddTaskScreen({Key? key}) : super(key: key);
 
   @override
