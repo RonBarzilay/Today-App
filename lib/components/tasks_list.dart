@@ -3,7 +3,10 @@ import 'package:today_app/components/task_tile.dart';
 
 class TasksList extends StatefulWidget {
   late List<TaskTile> tasks;
-  TasksList({Key? key, required this.tasks}) : super(key: key);
+  final Function updateMyTilesCallback;
+  TasksList(
+      {Key? key, required this.tasks, required this.updateMyTilesCallback})
+      : super(key: key);
 
   @override
   State<TasksList> createState() => _TasksListState();
@@ -12,8 +15,11 @@ class TasksList extends StatefulWidget {
 class _TasksListState extends State<TasksList> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return ReorderableListView(
       children: widget.tasks,
+      onReorder: (oldIndex, newIndex) {
+        widget.updateMyTilesCallback(oldIndex, newIndex);
+      },
     );
   }
 }

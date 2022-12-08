@@ -24,7 +24,9 @@ class _TaskTileState extends State<TaskTile> {
       title: Text(
         widget.taskName,
         style: TextStyle(
-            decoration: widget.isChecked ? TextDecoration.lineThrough : null),
+          decoration: widget.isChecked ? TextDecoration.lineThrough : null,
+          fontWeight: FontWeight.w500,
+        ),
       ),
       trailing: TaskCheckbox(
           checkboxCallback: checkboxCallback, isChecked: widget.isChecked),
