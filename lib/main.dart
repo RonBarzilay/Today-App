@@ -17,8 +17,10 @@ class today extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const AuthScreen(),
-        '/Tasks': (context) => const TasksScreen(),
-        '/New_Task': (context) => const AddTaskScreen()
+        '/Tasks': (context) => TasksScreen(),
+        '/New_Task': (context) => AddTaskScreen(
+              addTaskCallback: () {},
+            )
       },
     );
   }

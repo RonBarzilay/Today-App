@@ -3,49 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:today_app/components/tasks_list.dart';
 import 'package:today_app/screens/add_task_screen.dart';
 
-import '../components/task_tile.dart';
+import '../components/task.dart';
 
 class TasksScreen extends StatefulWidget {
+  List<Task> tasks = [
+    Task(name: 'Get my Chat App done A.S.A.P'),
+    Task(name: 'Buy milk'),
+    Task(name: 'Run 10k Marathon'),
+  ];
   static String id = 'Tasks';
-  const TasksScreen({Key? key}) : super(key: key);
+  TasksScreen({Key? key}) : super(key: key);
 
   @override
   State<TasksScreen> createState() => _TasksScreenState();
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  // List<String> tasks = [
-  //   'Get my Chat App done A.S.A.P',
-  //   'Buy milk',
-  //   'Run 10k Marathon',
-  // ];
-  List<TaskTile> tasks = [
-    TaskTile(
-      taskName: 'Get my Chat App done A.S.A.P',
-      key: ValueKey('Get my Chat App done A.S.A.P'),
-    ),
-    TaskTile(
-      taskName: 'Buy milk',
-      key: ValueKey('Buy milk'),
-    ),
-    TaskTile(
-      taskName: 'Run 10k Marathon',
-      key: ValueKey('Run 10k Marathon'),
-    )
-  ];
-
-  // Reorder method
-  void updateMyTiles(oldIndex, newIndex) {
+  void addTask(Task task) {
     setState(() {
-      // an adjustment is needed when moving down the list
-      if (newIndex > oldIndex) {
-        newIndex--;
-      }
-
-      // get the tile we are moving
-      final tile = tasks.removeAt(oldIndex);
-      // place the tile in the new index
-      tasks.insert(newIndex, tile);
+      widget.tasks.add(task);
     });
   }
 
@@ -59,7 +35,13 @@ class _TasksScreenState extends State<TasksScreen> {
         onPressed: () {
           showCupertinoModalPopup(
             context: context,
-            builder: (_) => const AddTaskScreen(),
+            builder: (_) => AddTaskScreen(
+              addTaskCallback: (newTaskTitle) {
+                setState(() {
+                  widget.tasks.add(Task(name: newTaskTitle));
+                });
+              },
+            ),
           );
         },
         child: const Icon(Icons.add),
@@ -94,7 +76,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  '${tasks.length} Tasks',
+                  '${widget.tasks.length} Tasks',
                   style: const TextStyle(color: Colors.white, fontSize: 18.0),
                 ),
               ],
@@ -111,11 +93,8 @@ class _TasksScreenState extends State<TasksScreen> {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: TasksList(
-                  tasks: tasks,
-                  updateMyTilesCallback: updateMyTiles,
-                ),
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: TasksList(tasks: widget.tasks),
               ),
             ),
           ),
