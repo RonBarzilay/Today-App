@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:today_app/components/task_data.dart';
@@ -22,7 +23,7 @@ class today extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
-          '/': (context) => const AuthScreen(),
+          '/': (context) => kIsWeb ? TasksScreen() : const AuthScreen(),
           '/Tasks': (context) => TasksScreen(),
           '/New_Task': (context) => AddTaskScreen()
         },
