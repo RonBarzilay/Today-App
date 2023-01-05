@@ -1,29 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:today_app/components/tasks_list.dart';
 import 'package:today_app/screens/add_task_screen.dart';
 
-import '../components/task.dart';
+import '../components/task_data.dart';
 
-class TasksScreen extends StatefulWidget {
-  List<Task> tasks = [
-    Task(name: 'Get my Chat App done A.S.A.P'),
-    Task(name: 'Buy milk'),
-    Task(name: 'Run 10k Marathon'),
-  ];
+class TasksScreen extends StatelessWidget {
   static String id = 'Tasks';
-  TasksScreen({Key? key}) : super(key: key);
-
-  @override
-  State<TasksScreen> createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  void addTask(Task task) {
-    setState(() {
-      widget.tasks.add(task);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +19,7 @@ class _TasksScreenState extends State<TasksScreen> {
         onPressed: () {
           showCupertinoModalPopup(
             context: context,
-            builder: (_) => AddTaskScreen(
-              addTaskCallback: (newTaskTitle) {
-                setState(() {
-                  widget.tasks.add(Task(name: newTaskTitle));
-                });
-              },
-            ),
+            builder: (_) => AddTaskScreen(),
           );
         },
         child: const Icon(Icons.add),
@@ -76,7 +54,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  '${widget.tasks.length} Tasks',
+                  '${Provider.of<TaskData>(context).taskCount} Tasks',
                   style: const TextStyle(color: Colors.white, fontSize: 18.0),
                 ),
               ],
@@ -94,7 +72,7 @@ class _TasksScreenState extends State<TasksScreen> {
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 20),
-                child: TasksList(tasks: widget.tasks),
+                child: TasksList(),
               ),
             ),
           ),

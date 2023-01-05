@@ -27,7 +27,7 @@ class TaskTile extends StatelessWidget {
           value: isChecked,
           activeColor: Colors.lightBlueAccent,
           shape: const CircleBorder(),
-          onChanged: (bool? value) {
+          onChanged: (value) {
             checkboxCallback(value);
           },
         ),

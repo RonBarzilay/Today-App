@@ -1,14 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:today_app/components/task_data.dart';
 
-class AddTaskScreen extends StatelessWidget {
+class AddTaskScreen extends StatefulWidget {
   static String id = 'New_Task';
-  String newTaskTitle = '';
-  final Function addTaskCallback;
-  TextEditingController newTaskTextController = TextEditingController();
 
-  // final Function addTaskCallback;
-  AddTaskScreen({Key? key, required this.addTaskCallback}) : super(key: key);
+  @override
+  State<AddTaskScreen> createState() => _AddTaskScreenState();
+}
+
+class _AddTaskScreenState extends State<AddTaskScreen> {
+  String newTaskTitle = '';
+  Color plusButtonColor = Colors.white;
+  TextEditingController newTaskTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +70,12 @@ class AddTaskScreen extends StatelessWidget {
               ),
               controller: newTaskTextController,
               onChanged: (newTitle) {
-                newTaskTitle = newTitle;
+                setState(() {
+                  newTaskTitle = newTitle;
+                  newTaskTitle == ''
+                      ? plusButtonColor = Colors.white
+                      : plusButtonColor = Colors.lightBlueAccent;
+                });
               },
             ),
           ),
@@ -74,7 +84,10 @@ class AddTaskScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              addTaskCallback(newTaskTitle);
+              newTaskTitle == ''
+                  ? null
+                  : Provider.of<TaskData>(context, listen: false)
+                      .addTask(newTaskTitle);
               Navigator.pop(context);
             },
             style: ButtonStyle(
@@ -83,7 +96,11 @@ class AddTaskScreen extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 45, vertical: 13),
               ),
             ),
-            child: const Text('Add'),
+            child: Icon(
+              Icons.add,
+              size: 24,
+              color: plusButtonColor,
+            ),
           )
         ],
       ),

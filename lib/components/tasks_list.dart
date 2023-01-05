@@ -1,49 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:today_app/components/task.dart';
+import 'package:provider/provider.dart';
+import 'package:today_app/components/task_data.dart';
 import 'package:today_app/components/task_tile.dart';
 
-class TasksList extends StatefulWidget {
-  final List<Task> tasks;
-  const TasksList({Key? key, required this.tasks}) : super(key: key);
-
-  @override
-  State<TasksList> createState() => _TasksListState();
-}
-
-class _TasksListState extends State<TasksList> {
-  // Reorder method
-  void updateMyTiles(oldIndex, newIndex) {
-    setState(() {
-      // an adjustment is needed when moving down the list
-      if (newIndex > oldIndex) {
-        newIndex--;
-      }
-
-      // get the tile we are moving
-      final tile = widget.tasks.removeAt(oldIndex);
-      // place the tile in the new index
-      widget.tasks.insert(newIndex, tile);
-    });
-  }
-
+class TasksList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ReorderableListView.builder(
-      itemBuilder: (context, index) {
-        // Here is an anonymous function named checkboxCallback
-        return TaskTile(
-            key: ValueKey(widget.tasks[index].name),
-            taskTitle: widget.tasks[index].name,
-            isChecked: widget.tasks[index].isDone,
-            checkboxCallback: (bool status) {
-              setState(() {
-                widget.tasks[index].isDone = status;
-              });
-            });
-      },
-      itemCount: widget.tasks.length,
-      onReorder: (oldIndex, newIndex) {
-        updateMyTiles(oldIndex, newIndex);
+    return Consumer<TaskData>(
+      builder: (context, taskData, child) {
+        return ReorderableListView.builder(
+          itemBuilder: (context, index) {
+            // Here is an anonymous function named checkboxCallback
+            final task = taskData.tasks[index];
+            return TaskTile(
+                key: ValueKey(task.name),
+                taskTitle: task.name,
+                isChecked: task.isDone,
+                checkboxCallback: (bool status) {
+                  taskData.updateTask(task);
+                });
+          },
+          itemCount: taskData.taskCount,
+          onReorder: (oldIndex, newIndex) {
+            taskData.updateMyTiles(oldIndex, newIndex);
+          },
+        );
       },
     );
   }
