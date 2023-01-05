@@ -7,4 +7,8 @@ class Task {
   void toggleDone() {
     isDone = !isDone;
   }
+
+  String get getName {
+    return name;
+  }
 }

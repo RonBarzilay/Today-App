@@ -42,4 +42,9 @@ class TaskData extends ChangeNotifier {
     _tasks.insert(newIndex, tile);
     notifyListeners();
   }
+
+  void deleteTask(Task task) {
+    _tasks.remove(task);
+    notifyListeners();
+  }
 }
