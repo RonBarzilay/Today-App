@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:today_app/components/task_data.dart';
 
 class AddTaskScreen extends StatefulWidget {
   static String id = 'New_Task';
+  late final Function fabVisibleCallback;
+
+  AddTaskScreen({required this.fabVisibleCallback});
 
   @override
   State<AddTaskScreen> createState() => _AddTaskScreenState();
@@ -14,6 +18,37 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   String newTaskTitle = '';
   Color plusButtonColor = Colors.white;
   TextEditingController newTaskTextController = TextEditingController();
+  FToast fToast = FToast();
+
+  void showToast(String msg) {
+    // return true - if undo pressed, otherwise return false
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 5.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.greenAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.lightbulb_outlined),
+          const SizedBox(
+            width: 5.0,
+          ),
+          Text(msg),
+        ],
+      ),
+    );
+    fToast.showToast(
+      child: toast,
+      fabCallback: () {
+        Future.delayed(Duration.zero, () async {
+          // widget.fabVisibleCallback();
+        });
+      },
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,10 +119,16 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           ),
           TextButton(
             onPressed: () {
-              newTaskTitle == ''
-                  ? null
-                  : Provider.of<TaskData>(context, listen: false)
-                      .addTask(newTaskTitle);
+              if (newTaskTitle == '') {
+                // empty task
+                return;
+              } else {
+                // if task already exists, then showToast message
+                if (!Provider.of<TaskData>(context, listen: false)
+                    .addTask(newTaskTitle)) {
+                  showToast('Task exists');
+                }
+              }
               Navigator.pop(context);
             },
             style: ButtonStyle(

@@ -25,7 +25,7 @@ class today extends StatelessWidget {
         routes: {
           '/': (context) => kIsWeb ? TasksScreen() : const AuthScreen(),
           '/Tasks': (context) => TasksScreen(),
-          '/New_Task': (context) => AddTaskScreen()
+          '/New_Task': (context) => AddTaskScreen(fabVisibleCallback: () {})
         },
       ),
     );

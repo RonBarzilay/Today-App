@@ -18,10 +18,18 @@ class TaskData extends ChangeNotifier {
     return _tasks.length;
   }
 
-  void addTask(String newTaskTitle) {
+  bool addTask(String newTaskTitle) {
+    // if no duplicates tasks found - true (added),
+    // otherwise, false (not added)
     final task = Task(name: newTaskTitle);
+    for (Task task in _tasks) {
+      if (task.getName == newTaskTitle) {
+        return false;
+      }
+    }
     _tasks.add(task);
     notifyListeners();
+    return true;
   }
 
   void appendTask(Task task) {
