@@ -57,11 +57,11 @@ class _TasksScreenState extends State<TasksScreen> {
     );
     fToast.showToast(
       child: toast,
-      fabCallback: () {
-        Future.delayed(Duration.zero, () async {
-          fabVisible();
-        });
-      },
+      // fabCallback: () {
+      //   Future.delayed(Duration.zero, () async {
+      //     fabVisible();
+      //   });
+      // },
       gravity: ToastGravity.BOTTOM,
       toastDuration: const Duration(seconds: 2),
     );
